@@ -134,8 +134,9 @@
         </div>
     </div>
 
+    <script src="js/config.js"></script>
     <script>
-        const API_URL = '/api/admin';
+        const API_URL = window.API_CONFIG ? window.API_CONFIG.getApiUrl('/api/admin') : '/api/admin';
         const token = localStorage.getItem('token');
         if (!token) window.location.href = '/login.html';
 
