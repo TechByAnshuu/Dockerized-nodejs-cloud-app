@@ -1,4 +1,5 @@
-const API_URL = '/api/admin';
+// Use API_CONFIG if available (loaded from config.js), otherwise fallback to relative URL
+const API_URL = window.API_CONFIG ? window.API_CONFIG.getApiUrl("/api/admin") : "/api/admin";
 const token = localStorage.getItem('token');
 const user = JSON.parse(localStorage.getItem('user'));
 

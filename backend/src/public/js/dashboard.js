@@ -1,4 +1,5 @@
-const API_URL = '/api/complaints';
+// Use API_CONFIG if available (loaded from config.js), otherwise fallback to relative URL
+const API_URL = window.API_CONFIG ? window.API_CONFIG.getApiUrl("/api/complaints") : "/api/complaints";
 
 // Check Auth
 const token = localStorage.getItem('token');
