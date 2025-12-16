@@ -1,0 +1,38 @@
+services:
+  # Node.js Backend Service
+  backend:
+    build: ./backend
+    container_name: complaint-backend
+    restart: always
+    environment:
+      - PORT=3001
+      - NODE_ENV=production
+      - JWT_SECRET=${JWT_SECRET}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    env_file:
+      - ./backend/.env
+    ports:
+      - "3001:3001"
+    networks:
+      - app-network
+    volumes:
+      - ./backend/src:/app/src
+      - ./backend/package.json:/app/package.json
+
+  # Apache Web Server (Reverse Proxy)
+  webserver:
+    build: ./apache
+    container_name: complaint-webserver
+    restart: always
+    ports:
+      - "8090:80"
+    depends_on:
+      - backend
+    volumes:
+      - ./backend/src/public:/usr/local/apache2/htdocs
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

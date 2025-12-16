@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings – CivicSphere</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div style="padding: 0 var(--space-xl); margin-bottom: var(--space-xl);">
+            <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                <img src="uploads/logo.png" alt="CivicSphere" style="width: 35px; height: 35px;">
+                <div style="color: white; font-weight: 600;">CivicSphere</div>
+            </div>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="admin.html">Admin Panel</a></li>
+            <li><a href="manage-complaints.html">Manage Complaints</a></li>
+            <li><a href="users.html">User Management</a></li>
+            <li><a href="reports.html">Reports</a></li>
+            <li><a href="settings.html" class="active">Settings</a></li>
+        </ul>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-with-sidebar">
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <a href="admin.html" class="back-button">← Back</a>
+                <img src="uploads/logo.png" alt="CivicSphere Logo">
+                <div>
+                    <div class="top-bar-title">CivicSphere</div>
+                    <div class="top-bar-subtitle">Settings</div>
+                </div>
+            </div>
+            <div class="user-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+        </div>
+
+        <!-- CONTENT AREA -->
+        <div class="content-area">
+            <!-- HEADER -->
+            <div style="margin-bottom: 2rem;">
+                <h2 style="margin: 0; color: var(--text-dark); font-size: 1.75rem;">Settings</h2>
+                <p style="margin: 0.5rem 0 0 0; color: var(--text-gray); font-size: 0.95rem;">Configure system settings
+                    and preferences</p>
+            </div>
+
+            <!-- ADMIN PROFILE -->
+            <div class="card" style="margin-bottom: 1.5rem;">
+                <h3
+                    style="margin: 0 0 1.5rem 0; font-size: 1.125rem; font-weight: 600; color: var(--text-dark); border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">
+                    Admin Profile</h3>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                    <div>
+                        <label
+                            style="display: block; margin-bottom: 0.5rem; color: var(--text-gray); font-weight: 500;">Name</label>
+                        <div style="padding: 0.75rem; background: var(--bg-gray); border-radius: 8px; color: var(--text-dark);"
+                            id="admin-name">--</div>
+                    </div>
+                    <div>
+                        <label
+                            style="display: block; margin-bottom: 0.5rem; color: var(--text-gray); font-weight: 500;">Email</label>
+                        <div style="padding: 0.75rem; background: var(--bg-gray); border-radius: 8px; color: var(--text-dark);"
+                            id="admin-email">--</div>
+                    </div>
+                    <div>
+                        <label
+                            style="display: block; margin-bottom: 0.5rem; color: var(--text-gray); font-weight: 500;">Role</label>
+                        <div style="padding: 0.75rem; background: var(--bg-gray); border-radius: 8px; color: var(--text-dark); text-transform: capitalize;"
+                            id="admin-role">--</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API KEYS -->
+            <div class="card" style="margin-bottom: 1.5rem;">
+                <h3
+                    style="margin: 0 0 1.5rem 0; font-size: 1.125rem; font-weight: 600; color: var(--text-dark); border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">
+                    API Configuration</h3>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label
+                        style="display: block; margin-bottom: 0.5rem; color: var(--text-gray); font-weight: 500;">Gemini
+                        AI API Key</label>
+                    <div style="display: flex; gap: 0.75rem; align-items: center;">
+                        <div style="flex: 1; padding: 0.75rem; background: var(--bg-gray); border-radius: 8px; font-family: monospace; color: var(--text-dark);"
+                            id="gemini-key">••••••••••••••••••••</div>
+                        <button onclick="toggleKeyVisibility('gemini')" class="btn btn-secondary btn-sm">Show</button>
+                    </div>
+                </div>
+
+                <div>
+                    <label
+                        style="display: block; margin-bottom: 0.5rem; color: var(--text-gray); font-weight: 500;">Cloudinary
+                        Configuration</label>
+                    <div style="display: flex; gap: 0.75rem; align-items: center;">
+                        <div style="flex: 1; padding: 0.75rem; background: var(--bg-gray); border-radius: 8px; font-family: monospace; color: var(--text-dark);"
+                            id="cloudinary-key">••••••••••••••••••••</div>
+                        <button onclick="toggleKeyVisibility('cloudinary')"
+                            class="btn btn-secondary btn-sm">Show</button>
+                    </div>
+                </div>
+
+                <div
+                    style="margin-top: 1rem; padding: 0.75rem; background: #fef3c7; border-left: 3px solid #f59e0b; border-radius: 6px;">
+                    <p style="margin: 0; color: #92400e; font-size: 0.9rem;">
+                        <strong>⚠️ Security Notice:</strong> API keys are configured via environment variables. Contact
+                        system administrator to update.
+                    </p>
+                </div>
+            </div>
+
+            <!-- SYSTEM INFO -->
+            <div class="card">
+                <h3
+                    style="margin: 0 0 1.5rem 0; font-size: 1.125rem; font-weight: 600; color: var(--text-dark); border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">
+                    System Information</h3>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                    <div style="padding: 1rem; background: var(--bg-light); border-radius: 8px;">
+                        <div style="font-size: 0.875rem; color: var(--text-gray); margin-bottom: 0.25rem;">Application
+                            Name</div>
+                        <div style="font-weight: 600; color: var(--text-dark);">CivicSphere</div>
+                    </div>
+                    <div style="padding: 1rem; background: var(--bg-light); border-radius: 8px;">
+                        <div style="font-size: 0.875rem; color: var(--text-gray); margin-bottom: 0.25rem;">Version</div>
+                        <div style="font-weight: 600; color: var(--text-dark);">v2.0.0</div>
+                    </div>
+                    <div style="padding: 1rem; background: var(--bg-light); border-radius: 8px;">
+                        <div style="font-size: 0.875rem; color: var(--text-gray); margin-bottom: 0.25rem;">Database
+                        </div>
+                        <div style="font-weight: 600; color: var(--text-dark);">MongoDB Atlas</div>
+                    </div>
+                    <div style="padding: 1rem; background: var(--bg-light); border-radius: 8px;">
+                        <div style="font-size: 0.875rem; color: var(--text-gray); margin-bottom: 0.25rem;">Deployment
+                        </div>
+                        <div style="font-weight: 600; color: var(--text-dark);">Docker</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const token = localStorage.getItem('token');
+        if (!token) window.location.href = '/login.html';
+
+        let keysVisible = {
+            gemini: false,
+            cloudinary: false
+        };
+
+        async function loadSettings() {
+            try {
+                // Get current user (admin) info
+                const res = await fetch('/api/auth/me', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                const data = await res.json();
+                const user = data.user;
+
+                document.getElementById('admin-name').textContent = user.name || '--';
+                document.getElementById('admin-email').textContent = user.email || '--';
+                document.getElementById('admin-role').textContent = user.role || '--';
+
+            } catch (err) {
+                console.error('Error loading settings:', err);
+            }
+        }
+
+        function toggleKeyVisibility(keyType) {
+            keysVisible[keyType] = !keysVisible[keyType];
+
+            if (keyType === 'gemini') {
+                const elem = document.getElementById('gemini-key');
+                const btn = event.target;
+                if (keysVisible.gemini) {
+                    elem.textContent = 'Configured (check .env file)';
+                    btn.textContent = 'Hide';
+                } else {
+                    elem.textContent = '••••••••••••••••••••';
+                    btn.textContent = 'Show';
+                }
+            } else if (keyType === 'cloudinary') {
+                const elem = document.getElementById('cloudinary-key');
+                const btn = event.target;
+                if (keysVisible.cloudinary) {
+                    elem.textContent = 'Configured (check .env file)';
+                    btn.textContent = 'Hide';
+                } else {
+                    elem.textContent = '••••••••••••••••••••';
+                    btn.textContent = 'Show';
+                }
+            }
+        }
+
+        // Load settings on page load
+        loadSettings();
+    </script>
+
+    <script src="js/navigation.js"></script>
+    <script src="js/theme-switcher.js"></script>
+
+</body>
+
+</html>

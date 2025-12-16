@@ -1,0 +1,13 @@
+{
+    "builder": {
+        "gc": {
+            "defaultKeepStorage": "20GB",
+            "enabled": true
+        }
+    },
+    "experimental": false,
+    "dns": [
+        "8.8.8.8",
+        "8.8.4.4"
+    ]
+}

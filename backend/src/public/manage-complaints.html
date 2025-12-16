@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Complaints – Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div style="padding: 0 var(--space-xl); margin-bottom: var(--space-xl);">
+            <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                <img src="uploads/logo.png" alt="CivicSphere" style="width: 35px; height: 35px;">
+                <div style="color: white; font-weight: 600;">CivicSphere</div>
+            </div>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="admin.html">Dashboard</a></li>
+            <li><a href="admin.html">Admin Panel</a></li>
+            <li><a href="manage-complaints.html" class="active">Manage Complaints</a></li>
+            <li><a href="users.html">User Management</a></li>
+            <li><a href="reports.html">Reports</a></li>
+            <li><a href="settings.html">Settings</a></li>
+        </ul>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-with-sidebar">
+        <div class="content-area">
+            <h2 style="margin-bottom: var(--space-xl); color: var(--text-dark);">Manage Complaints</h2>
+
+            <!-- FILTERS -->
+            <div class="card" style="margin-bottom: var(--space-lg);">
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <input type="text" id="search-input" placeholder="Search complaints..."
+                        style="padding: 0.5rem; border: 1px solid var(--border-light); border-radius: 4px; width: 300px;">
+
+                    <select id="filter-status"
+                        style="padding: 0.5rem; border: 1px solid var(--border-light); border-radius: 4px;">
+                        <option value="">All Statuses</option>
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Resolved">Resolved</option>
+                    </select>
+
+                    <button onclick="fetchComplaints()" class="btn btn-primary btn-sm">Filter</button>
+                </div>
+            </div>
+
+            <!-- COMPLAINTS TABLE -->
+            <div class="card">
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>User</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="complaints-tbody">
+                            <tr>
+                                <td colspan="6" style="text-align: center;">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Pagination Controls could go here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = '/api/admin';
+        const token = localStorage.getItem('token');
+
+        if (!token) window.location.href = '/login.html';
+
+        async function fetchComplaints() {
+            const status = document.getElementById('filter-status').value;
+            const search = document.getElementById('search-input').value;
+
+            let query = `?sort=-createdAt`;
+            if (status) query += `&status=${status}`;
+            if (search) query += `&search=${search}`;
+
+            try {
+                const res = await fetch(`${API_URL}/complaints${query}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                renderTable(data.complaints);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function renderTable(complaints) {
+            const tbody = document.getElementById('complaints-tbody');
+            if (complaints.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">No complaints found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = complaints.map(c => `
+                <tr>
+                    <td>
+                        <div style="font-weight: 500;">${c.title}</div>
+                        <div style="font-size: 0.8rem; color: var(--text-gray); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;">${c.description}</div>
+                    </td>
+                    <td>
+                        <div>${c.user?.name || 'Unknown'}</div>
+                        <div style="font-size: 0.8rem; color: var(--text-gray);">${c.user?.email || ''}</div>
+                    </td>
+                    <td>${c.category}</td>
+                    <td><span class="badge ${getStatusClass(c.status)}">${c.status}</span></td>
+                    <td>${new Date(c.createdAt).toLocaleDateString()}</td>
+                    <td>
+                        <div style="display:flex; gap:0.5rem; align-items:center;">
+                            <button onclick="window.location.href='complaint-details.html?id=${c._id}'" class="btn btn-sm btn-secondary">
+                                Manage
+                            </button>
+                            <button onclick="deleteComplaint('${c._id}')" class="btn btn-sm btn-danger">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function getStatusClass(status) {
+            if (status === 'Pending') return 'badge-open';
+            if (status === 'In Progress') return 'badge-progress';
+            if (status === 'Resolved') return 'badge-resolved';
+            return '';
+        }
+
+        // Delete Complaint (Admin)
+        async function deleteComplaint(id) {
+            if (!confirm('Are you sure you want to delete this complaint? This action cannot be undone.')) return;
+
+            try {
+                const res = await fetch(`${API_URL}/complaints/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (res.ok) {
+                    alert('Complaint deleted');
+                    fetchComplaints();
+                } else {
+                    const data = await res.json();
+                    alert(data.message || 'Failed to delete complaint');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Error deleting complaint');
+            }
+        }
+
+        fetchComplaints();
+    </script>
+
+    <script src="js/navigation.js"></script>
+    <script src="js/theme-switcher.js"></script>
+</body>
+
+</html>

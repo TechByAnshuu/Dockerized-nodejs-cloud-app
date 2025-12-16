@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports & Analytics – CivicSphere</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div style="padding: 0 var(--space-xl); margin-bottom: var(--space-xl);">
+            <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                <img src="uploads/logo.png" alt="CivicSphere" style="width: 35px; height: 35px;">
+                <div style="color: white; font-weight: 600;">CivicSphere</div>
+            </div>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="admin.html">Admin Panel</a></li>
+            <li><a href="manage-complaints.html">Manage Complaints</a></li>
+            <li><a href="users.html">User Management</a></li>
+            <li><a href="reports.html" class="active">Reports</a></li>
+            <li><a href="settings.html">Settings</a></li>
+        </ul>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-with-sidebar">
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <a href="admin.html" class="back-button">← Back</a>
+                <img src="uploads/logo.png" alt="CivicSphere Logo">
+                <div>
+                    <div class="top-bar-title">CivicSphere</div>
+                    <div class="top-bar-subtitle">Reports & Analytics</div>
+                </div>
+            </div>
+            <div class="user-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+        </div>
+
+        <!-- CONTENT AREA -->
+        <div class="content-area">
+            <!-- HEADER -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <div>
+                    <h2 style="margin: 0; color: var(--text-dark); font-size: 1.75rem;">Reports & Analytics</h2>
+                    <p style="margin: 0.5rem 0 0 0; color: var(--text-gray); font-size: 0.95rem;">View statistics and
+                        export data</p>
+                </div>
+                <button onclick="exportData()" class="btn btn-primary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        style="margin-right: 0.5rem;">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Export CSV
+                </button>
+            </div>
+
+            <!-- SUMMARY CARDS -->
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin-bottom: 2rem;">
+                <div class="card" style="border-left: 4px solid #3b82f6;">
+                    <p
+                        style="margin: 0; font-size: 0.875rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500;">
+                        Total Complaints</p>
+                    <h3 style="margin: 0.5rem 0 0 0; font-size: 2.25rem; font-weight: 700; color: var(--text-dark);"
+                        id="total-complaints">0</h3>
+                </div>
+
+                <div class="card" style="border-left: 4px solid #10b981;">
+                    <p
+                        style="margin: 0; font-size: 0.875rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500;">
+                        Resolved</p>
+                    <h3 style="margin: 0.5rem 0 0 0; font-size: 2.25rem; font-weight: 700; color: var(--text-dark);"
+                        id="resolved-complaints">0</h3>
+                </div>
+
+                <div class="card" style="border-left: 4px solid #f59e0b;">
+                    <p
+                        style="margin: 0; font-size: 0.875rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500;">
+                        Pending</p>
+                    <h3 style="margin: 0.5rem 0 0 0; font-size: 2.25rem; font-weight: 700; color: var(--text-dark);"
+                        id="pending-complaints">0</h3>
+                </div>
+
+                <div class="card" style="border-left: 4px solid #8b5cf6;">
+                    <p
+                        style="margin: 0; font-size: 0.875rem; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500;">
+                        In Progress</p>
+                    <h3 style="margin: 0.5rem 0 0 0; font-size: 2.25rem; font-weight: 700; color: var(--text-dark);"
+                        id="progress-complaints">0</h3>
+                </div>
+            </div>
+
+            <!-- CATEGORY BREAKDOWN -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3 style="margin: 0 0 1.5rem 0; font-size: 1.125rem; font-weight: 600; color: var(--text-dark);">
+                    Complaints by Category</h3>
+                <div id="category-breakdown"
+                    style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
+                    <p style="text-align: center; color: var(--text-gray);">Loading...</p>
+                </div>
+            </div>
+
+            <!-- STATUS BREAKDOWN -->
+            <div class="card">
+                <h3 style="margin: 0 0 1.5rem 0; font-size: 1.125rem; font-weight: 600; color: var(--text-dark);">Status
+                    Distribution</h3>
+                <div id="status-breakdown"
+                    style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
+                    <p style="text-align: center; color: var(--text-gray);">Loading...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = '/api/admin';
+        const token = localStorage.getItem('token');
+        if (!token) window.location.href = '/login.html';
+
+        let analyticsData = null;
+
+        async function loadReports() {
+            try {
+                const res = await fetch(`${API_URL}/analytics`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                analyticsData = await res.json();
+
+                // Update summary cards
+                document.getElementById('total-complaints').textContent = analyticsData.total || 0;
+
+                const byStatus = analyticsData.byStatus || {};
+                const statusMap = Array.isArray(byStatus)
+                    ? byStatus.reduce((acc, s) => (acc[s._id] = s.count, acc), {})
+                    : byStatus;
+
+                document.getElementById('pending-complaints').textContent = statusMap['Pending'] || 0;
+                document.getElementById('progress-complaints').textContent = statusMap['In Progress'] || 0;
+                document.getElementById('resolved-complaints').textContent = statusMap['Resolved'] || 0;
+
+                // Render category breakdown
+                renderCategoryBreakdown(analyticsData.byCategory || []);
+
+                // Render status breakdown
+                renderStatusBreakdown(statusMap);
+
+            } catch (err) {
+                console.error('Error loading reports:', err);
+                alert('Failed to load reports');
+            }
+        }
+
+        function renderCategoryBreakdown(categories) {
+            const container = document.getElementById('category-breakdown');
+
+            if (!categories || categories.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-gray); grid-column: 1 / -1;">No data available</p>';
+                return;
+            }
+
+            const sortedCategories = Array.isArray(categories)
+                ? categories.sort((a, b) => b.count - a.count)
+                : Object.entries(categories).map(([name, count]) => ({ _id: name, count })).sort((a, b) => b.count - a.count);
+
+            container.innerHTML = sortedCategories.map(cat => `
+                <div style="padding: 1rem; background: var(--bg-light); border-radius: 8px; border-left: 3px solid #3b82f6;">
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-dark);">${cat.count}</div>
+                    <div style="font-size: 0.875rem; color: var(--text-gray); text-transform: capitalize; margin-top: 0.25rem;">${cat._id || 'Unknown'}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderStatusBreakdown(statusMap) {
+            const container = document.getElementById('status-breakdown');
+
+            const statuses = [
+                { name: 'Pending', count: statusMap['Pending'] || 0, color: '#f59e0b' },
+                { name: 'In Progress', count: statusMap['In Progress'] || 0, color: '#8b5cf6' },
+                { name: 'Resolved', count: statusMap['Resolved'] || 0, color: '#10b981' }
+            ];
+
+            container.innerHTML = statuses.map(status => `
+                <div style="padding: 1rem; background: var(--bg-light); border-radius: 8px; border-left: 3px solid ${status.color};">
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-dark);">${status.count}</div>
+                    <div style="font-size: 0.875rem; color: var(--text-gray); margin-top: 0.25rem;">${status.name}</div>
+                </div>
+            `).join('');
+        }
+
+        async function exportData() {
+            try {
+                // Fetch all complaints
+                const res = await fetch(`${API_URL}/complaints?limit=1000`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                const data = await res.json();
+                const complaints = data.complaints || [];
+
+                if (complaints.length === 0) {
+                    alert('No data to export');
+                    return;
+                }
+
+                // Convert to CSV
+                const headers = ['ID', 'Title', 'Description', 'Status', 'Category', 'Location', 'Created Date', 'User Name', 'User Email'];
+                const csv = [
+                    headers.join(','),
+                    ...complaints.map(c => [
+                        c._id,
+                        `"${(c.title || '').replace(/"/g, '""')}"`,
+                        `"${(c.description || '').replace(/"/g, '""')}"`,
+                        c.status,
+                        c.category,
+                        `"${(c.location || '').replace(/"/g, '""')}"`,
+                        new Date(c.createdAt).toLocaleString(),
+                        c.user?.name || '',
+                        c.user?.email || ''
+                    ].join(','))
+                ].join('\n');
+
+                // Download
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `complaints-report-${new Date().toISOString().split('T')[0]}.csv`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+
+                alert('Report exported successfully!');
+            } catch (err) {
+                console.error('Error exporting data:', err);
+                alert('Failed to export data');
+            }
+        }
+
+        // Load reports on page load
+        loadReports();
+    </script>
+
+    <script src="js/navigation.js"></script>
+    <script src="js/theme-switcher.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Complaint – CivicSphere</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div style="padding: 0 var(--space-xl); margin-bottom: var(--space-xl);">
+            <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                <img src="uploads/logo.png" alt="CivicSphere" style="width: 35px; height: 35px;">
+                <div style="color: white; font-weight: 600;">CivicSphere</div>
+            </div>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="create-complaint.html" class="active">New Complaint</a></li>
+            <li><a href="#">My Complaints</a></li>
+            <li><a href="#">Analytics</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Settings</a></li>
+        </ul>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-with-sidebar">
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <a href="#" class="back-button">← Back</a>
+                <img src="uploads/logo.png" alt="CivicSphere Logo">
+                <div>
+                    <div class="top-bar-title">CivicSphere</div>
+                    <div class="top-bar-subtitle">AI-Powered Complaint Management</div>
+                </div>
+            </div>
+            <div class="user-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+        </div>
+
+        <!-- CONTENT AREA -->
+        <div class="content-area">
+            <h2 style="margin-bottom: var(--space-xl); color: var(--text-dark);">Create Complaint</h2>
+
+            <div style="max-width: 800px;">
+                <div class="card">
+                    <form id="complaint-form">
+                        <!-- TITLE -->
+                        <div class="form-group">
+                            <label class="form-label">Title</label>
+                            <input type="text" id="title" class="form-input" placeholder="Pothole on Main St" required>
+                        </div>
+
+                        <!-- DESCRIPTION -->
+                        <div class="form-group">
+                            <label class="form-label">Description</label>
+                            <textarea id="description" class="form-textarea"
+                                placeholder="There is a large pothole on Main St near the intersection with 3rd Ave. It's causing damage to vehicles."
+                                required></textarea>
+                        </div>
+
+                        <!-- CATEGORY -->
+                        <div class="form-group">
+                            <label class="form-label">Category</label>
+                            <select id="category" class="form-select" required>
+                                <option value="">Select category</option>
+                                <option value="Roads">Roads</option>
+                                <option value="Streetlights">Streetlights</option>
+                                <option value="Sanitation">Sanitation</option>
+                                <option value="Water Supply">Water Supply</option>
+                                <option value="Electricity">Electricity</option>
+                                <option value="Vandalism">Vandalism</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <!-- IMAGE UPLOAD -->
+                        <div class="form-group">
+                            <label class="form-label">Upload Images (Optional)</label>
+                            <input type="file" id="image" accept="image/*" multiple class="form-input">
+                        </div>
+
+                        <!-- SUBMIT BUTTON -->
+                        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Submit</button>
+
+                        <div id="status-message"
+                            style="text-align: center; margin-top: var(--space-md); display: none;"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/create-complaint.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/theme-switcher.js"></script>
+
+</body>
+
+</html>

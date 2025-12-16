@@ -1,0 +1,801 @@
+/* ===================================================
+   CIVICSPHERE DESIGN SYSTEM
+   Professional Blue & White Material-UI Style
+   ================================================== */
+
+:root {
+  /* Light Mode Colors */
+  --primary-blue: #1E73BE;
+  --primary-blue-dark: #155A96;
+  --primary-blue-light: #2E8AD6;
+  --white: #FFFFFF;
+  --bg-light: #F2F4F7;
+  --bg-gray: #F9FAFB;
+  --text-dark: #1F2937;
+  --text-gray: #6B7280;
+  --text-light: #9CA3AF;
+  --border-light: #E5E7EB;
+  --border-gray: #D1D5DB;
+
+  /* Status Colors */
+  --status-open: #1E73BE;
+  --status-progress: #10B981;
+  --status-resolved: #059669;
+  --status-severe: #EF4444;
+
+  /* Hover/background variables */
+  --card-hover-bg: #f9fafb; /* recent complaint hover */
+  --button-hover-bg: #eff6ff; /* quick action hover */
+
+  /* Card / Surface */
+  --card-bg: var(--white);
+
+  /* Quick action icon backgrounds */
+  --quick-icon-bg-1: #eff6ff;
+  --quick-icon-bg-2: #fef3c7;
+  --quick-icon-bg-3: #f3e8ff;
+  --quick-icon-bg-4: #ecfdf5;
+
+  /* Button/card text contrast tweaks */
+  --card-title-color: var(--text-dark);
+  --card-subtitle-color: var(--text-gray);
+
+  /* Quick action icon colors */
+  --icon-primary: #3b82f6;
+  --icon-warning: #f59e0b;
+  --icon-accent: #8b5cf6;
+  --icon-success: #10b981;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+}
+
+/* ===================================================
+   DARK MODE
+   ================================================== */
+
+body.dark-mode {
+  /* Dark mode palette (requested): dark gray backgrounds and off-white text */
+  --white: #171717; /* used for surface panels */
+  --bg-light: #121212; /* page background (requested) */
+  --bg-gray: #121212; /* darker gray areas */
+  --text-dark: #FAFAFA; /* off-white text (requested) */
+  --text-gray: rgba(250,250,250,0.75);
+  --text-light: rgba(250,250,250,0.55);
+  --border-light: #222222;
+  --border-gray: #2b2b2b;  /* Dark mode hover fallbacks */
+  --card-hover-bg: rgba(255,255,255,0.02);
+  --button-hover-bg: rgba(255,255,255,0.03);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.6);
+
+  /* Dark-mode surface and icon tweaks */
+  --card-bg: var(--white);
+  --quick-icon-bg-1: rgba(59,130,246,0.06);
+  --quick-icon-bg-2: rgba(245,158,11,0.06);
+  --quick-icon-bg-3: rgba(139,92,246,0.06);
+  --quick-icon-bg-4: rgba(16,185,129,0.06);
+
+  --icon-primary: #3b82f6;
+  --icon-warning: #f59e0b;
+  --icon-accent: #8b5cf6;
+  --icon-success: #10b981;
+}
+
+/* Invert logo in dark mode for better visibility */
+body.dark-mode img[alt*="CivicSphere"] {
+  filter: invert(1) brightness(1.2);
+}
+
+/* ===================================================
+   GLOBAL RESETS
+   ================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+/* ===================================================
+   TYPOGRAPHY
+   ================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  color: var(--text-dark);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+p {
+  color: var(--text-gray);
+  line-height: 1.6;
+}
+
+/* ===================================================
+   LAYOUT
+   ================================================== */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+}
+
+.split-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.split-left,
+.split-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2xl);
+}
+
+.split-left {
+  background-color: var(--white);
+}
+
+.split-right {
+  background-color: var(--white);
+}
+
+/* ===================================================
+   NAVIGATION
+   ================================================== */
+
+.navbar {
+  background-color: var(--white);
+  border-bottom: 1px solid var(--border-light);
+  padding: var(--space-md) var(--space-xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.navbar-brand img {
+  width: 40px;
+  height: 40px;
+}
+
+.navbar-tagline {
+  font-size: 0.75rem;
+  color: var(--text-gray);
+  font-weight: 400;
+}
+
+.navbar-menu {
+  display: flex;
+  gap: var(--space-xl);
+  list-style: none;
+}
+
+.navbar-menu a {
+  color: var(--text-gray);
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.navbar-menu a:hover {
+  color: var(--primary-blue);
+}
+
+.navbar-actions {
+  display: flex;
+  gap: var(--space-md);
+}
+
+/* ===================================================
+   SIDEBAR
+   ================================================== */
+
+/* ===================================================
+   SIDEBAR (Redesign - Dock Style)
+   ================================================== */
+
+.sidebar {
+  width: 250px;
+  background-color: var(--white);
+  min-height: 100vh;
+  padding: var(--space-xl) 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  border-right: 1px solid var(--border-light);
+  z-index: 100;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0 var(--space-md);
+}
+
+.sidebar-menu li {
+  margin-bottom: var(--space-xs);
+}
+
+.sidebar-menu a {
+  display: flex;
+  /* alignment */
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0.5rem 1rem;
+  /* Smaller vertical padding */
+  color: var(--text-gray);
+  font-weight: 500;
+  font-size: 0.95rem;
+  border-radius: var(--radius-md);
+  transition: all 0.2s;
+}
+
+.sidebar-menu a:hover {
+  background-color: var(--bg-gray);
+  color: var(--text-dark);
+}
+
+.sidebar-menu a.active {
+  background-color: rgba(30, 115, 190, 0.08);
+  /* Very subtle blue bg */
+  color: var(--primary-blue);
+  font-weight: 600;
+}
+
+.main-with-sidebar {
+  margin-left: 250px;
+  min-height: 100vh;
+  background-color: var(--white);
+  /* Main area also white or very light gray */
+}
+
+/* ===================================================
+   CARDS
+   ================================================== */
+
+.card {
+  background-color: var(--card-bg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-xl);
+  transition: box-shadow 0.2s;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.card-header {
+  margin-bottom: var(--space-lg);
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: var(--space-xs);
+}
+
+.card-subtitle {
+  font-size: 0.875rem;
+  color: var(--text-gray);
+}
+
+/* Stats Cards */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.stat-card {
+  background-color: var(--card-bg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+/* Removed .stat-icon style as per redesign */
+
+.stat-content h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  margin-bottom: 0.25rem;
+}
+
+.stat-content p {
+  font-size: 0.875rem;
+  color: var(--text-gray);
+  margin: 0;
+}
+
+/* ===================================================
+   BUTTONS
+   ================================================== */
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+}
+
+.btn-primary {
+  background-color: var(--primary-blue);
+  color: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-blue-dark);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--white);
+  color: var(--primary-blue);
+  border: 2px solid var(--primary-blue);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-light);
+}
+
+.btn-lg {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+/* ===================================================
+   FORMS
+   ================================================== */
+
+.form-group {
+  margin-bottom: var(--space-lg);
+}
+
+.form-label {
+  display: block;
+  font-weight: 500;
+  color: var(--text-dark);
+  margin-bottom: var(--space-xs);
+  font-size: 0.875rem;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-gray);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  color: var(--text-dark);
+  background-color: var(--white);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(30, 115, 190, 0.1);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--text-light);
+}
+
+/* ===================================================
+   TABLES
+   ================================================== */
+
+.table-container {
+  background-color: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead {
+  background-color: var(--bg-gray);
+}
+
+.table th {
+  padding: var(--space-md);
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-dark);
+  font-size: 0.875rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.table td {
+  padding: var(--space-md);
+  color: var(--text-gray);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.table tbody tr:hover {
+  background-color: var(--bg-gray);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ===================================================
+   BADGES
+   ================================================== */
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.badge-open {
+  background-color: rgba(30, 115, 190, 0.1);
+  color: var(--status-open);
+}
+
+.badge-progress {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: var(--status-progress);
+}
+
+.badge-resolved {
+  background-color: rgba(5, 150, 105, 0.1);
+  color: var(--status-resolved);
+}
+
+.badge-severe {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: var(--status-severe);
+}
+
+/* ===================================================
+   UTILITIES
+   ================================================== */
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.mt-1 {
+  margin-top: var(--space-sm);
+}
+
+.mt-2 {
+  margin-top: var(--space-md);
+}
+
+.mt-3 {
+  margin-top: var(--space-lg);
+}
+
+.mt-4 {
+  margin-top: var(--space-xl);
+}
+
+.mb-1 {
+  margin-bottom: var(--space-sm);
+}
+
+.mb-2 {
+  margin-bottom: var(--space-md);
+}
+
+.mb-3 {
+  margin-bottom: var(--space-lg);
+}
+
+.mb-4 {
+  margin-bottom: var(--space-xl);
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gap-1 {
+  gap: var(--space-sm);
+}
+
+.gap-2 {
+  gap: var(--space-md);
+}
+
+.gap-3 {
+  gap: var(--space-lg);
+}
+
+/* ===================================================
+   DARK MODE TOGGLE
+   ================================================== */
+
+.theme-toggle {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--primary-blue);
+  color: var(--white);
+  border: none;
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-xl);
+}
+
+body.dark-mode .theme-toggle {
+  background-color: var(--bg-gray);
+  border: 2px solid var(--primary-blue);
+  color: var(--text-dark);
+}
+
+/* Hoverable utilities to avoid hard-coded white hover flashes */
+.hoverable {
+  transition: background-color 0.2s, border-color 0.2s;
+  color: var(--card-title-color);
+  text-align: left;
+}
+.hoverable:hover {
+  border-color: var(--primary-blue);
+  background-color: var(--button-hover-bg);
+}
+
+/* Quick Action text styles */
+.hoverable .quick-action-title {
+  color: var(--card-title-color);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.hoverable .quick-action-subtitle {
+  color: var(--card-subtitle-color);
+  font-size: 0.8rem;
+}
+
+/* Make Quick Actions visually match recent complaint cards */
+.quick-action {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--border-light);
+  background: var(--card-bg);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.quick-action:hover {
+  background-color: var(--card-hover-bg);
+  border-color: var(--primary-blue);
+}
+
+.quick-action .quick-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quick-action .quick-action-title {
+  color: var(--text-dark);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.quick-action .quick-action-subtitle {
+  color: var(--text-gray);
+  font-size: 0.8rem;
+}
+
+.recent-complaint {
+  background-color: transparent;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.recent-complaint:hover {
+  border-color: var(--primary-blue);
+  background-color: var(--card-hover-bg);
+}
+
+/* ===================================================
+   RESPONSIVE
+   ================================================== */
+
+/* ===================================================
+   FOOTER
+   ================================================== */
+.footer {
+  background-color: var(--text-dark);
+  color: var(--white);
+  padding: var(--space-xl) 0;
+  text-align: center;
+}
+
+body.dark-mode .footer {
+  background-color: var(--bg-light);
+  /* Use dark gray footer consistent with dark mode */
+  border-top: 1px solid var(--border-light);
+}
+
+.footer p {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Footer text in dark mode should use off-white for contrast */
+body.dark-mode .footer p {
+  color: rgba(250, 250, 250, 0.85);
+}
+
+@media (max-width: 768px) {
+  .split-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    position: relative;
+    min-height: auto;
+  }
+
+  .main-with-sidebar {
+    margin-left: 0;
+  }
+
+  .navbar {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .navbar-menu {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+}

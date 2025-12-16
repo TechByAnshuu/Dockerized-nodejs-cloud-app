@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Details – Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div style="padding: 0 var(--space-xl); margin-bottom: var(--space-xl);">
+            <div style="color: white; font-weight: 600;">CivicSphere</div>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="manage-complaints.html">← Back to List</a></li>
+        </ul>
+    </div>
+
+    <div class="main-with-sidebar">
+        <div class="content-area">
+            <!-- HEADER -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2 style="color: var(--text-dark);" id="c-title">Loading...</h2>
+                <span class="badge" id="c-status">--</span>
+            </div>
+
+            <div class="detail-grid">
+                <!-- LEFT COLUMN: INFO -->
+                <div class="card">
+                    <img id="c-image" src="" alt="Complaint Image"
+                        style="width: 100%; height: 300px; object-fit: cover; border-radius: 8px; display: none; margin-bottom: 1rem;">
+
+                    <div
+                        style="display: flex; gap: 2rem; margin-bottom: 1.5rem; color: var(--text-gray); font-size: 0.9rem;">
+                        <div>
+                            <strong>Category:</strong> <span id="c-category">--</span>
+                        </div>
+                        <div>
+                            <strong>Location:</strong> <span id="c-location">--</span>
+                        </div>
+                        <div>
+                            <strong>Date:</strong> <span id="c-date">--</span>
+                        </div>
+                    </div>
+
+                    <h4 style="margin-bottom: 0.5rem;">Description</h4>
+                    <p id="c-desc" style="color: var(--text-dark); line-height: 1.6; margin-bottom: 2rem;">--</p>
+
+                    <h4 style="margin-bottom: 0.5rem;">User Information</h4>
+                    <div
+                        style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--bg-gray); border-radius: 8px;">
+                        <div
+                            style="width: 40px; height: 40px; background: #ddd; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            👤</div>
+                        <div>
+                            <div style="font-weight: 600;" id="u-name">--</div>
+                            <div style="font-size: 0.85rem;" id="u-email">--</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: ACTIONS -->
+                <div>
+                    <div class="card" style="margin-bottom: 2rem;">
+                        <h3 style="margin-bottom: 1rem;">Update Status</h3>
+
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">New Status</label>
+                            <select id="update-status"
+                                style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-light); border-radius: 4px;">
+                                <option value="Pending">Pending</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Resolved">Resolved</option>
+                            </select>
+                        </div>
+
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Message to
+                                User</label>
+                            <textarea id="update-message" rows="4"
+                                style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-light); border-radius: 4px;"
+                                placeholder="Write a response..."></textarea>
+                            <button id="ai-btn" class="btn btn-sm btn-secondary"
+                                style="margin-top: 0.5rem; width: 100%;">✨ Auto-Draft Response (AI)</button>
+                        </div>
+
+                        <button onclick="updateComplaint()" class="btn btn-primary" style="width: 100%;">Update
+                            Complaint</button>
+                    </div>
+
+                    <!-- TIMELINE -->
+                    <div class="card">
+                        <h3 style="margin-bottom: 1rem;">Timeline</h3>
+                        <div id="timeline-container" style="display: flex; flex-direction: column; gap: 1rem;">
+                            <!-- Activity -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = '/api/admin';
+        const token = localStorage.getItem('token');
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+
+        if (!token) window.location.href = '/login.html';
+        if (!id) alert('No complaint ID specified');
+
+        async function fetchDetails() {
+            try {
+                // Reuse existing sort/filter endpoint but we need a single endpoint actually.
+                // The current API only has getAll. Let's filter client side or add GET /:id support.
+                // adminController does not have GET /:id explicitly, but we can use the regular user endpoint or allow it.
+                // Actually, let's just use the complaints list and find it for now to save backend changes, 
+                // OR better: use the update endpoint to GET? No.
+                // Let's rely on the fact we might have to fetch list and filter client side for now as a quick fix, 
+                // but proper way is GET /api/admin/complaints giving the list.
+                // Wait, user endpoint GET /api/complaints is scoped to user.
+                // Admin endpoint GET /api/admin/complaints returns ALL.
+                // So we can fetch all and find. Not efficient but works for MVP.
+
+                const res = await fetch(`${API_URL}/complaints`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                const complaint = data.complaints.find(c => c._id === id || c.id === id);
+
+                if (complaint) renderDetails(complaint);
+                else alert('Complaint not found');
+
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function renderDetails(c) {
+            document.getElementById('c-title').textContent = c.title;
+            document.getElementById('c-desc').textContent = c.description;
+            document.getElementById('c-category').textContent = c.category;
+            document.getElementById('c-location').textContent = c.location;
+            document.getElementById('c-date').textContent = new Date(c.createdAt).toLocaleDateString();
+
+            const statusEl = document.getElementById('c-status');
+            statusEl.textContent = c.status;
+            statusEl.className = `badge ${getStatusClass(c.status)}`;
+
+            document.getElementById('update-status').value = c.status;
+
+            if (c.user) {
+                document.getElementById('u-name').textContent = c.user.name;
+                document.getElementById('u-email').textContent = c.user.email;
+            }
+
+            if (c.imageUrl || (c.images && c.images.length > 0)) {
+                const img = document.getElementById('c-image');
+                img.src = c.imageUrl || c.images[0];
+                img.style.display = 'block';
+            }
+
+            const timeline = document.getElementById('timeline-container');
+            if (c.timeline && c.timeline.length > 0) {
+                timeline.innerHTML = c.timeline.reverse().map(t => `
+                    <div style="border-left: 2px solid var(--border-light); padding-left: 1rem; padding-bottom: 0.5rem;">
+                        <div style="font-weight: 500; font-size: 0.9rem;">${t.status || 'Update'}</div>
+                        <div style="font-size: 0.85rem; color: var(--text-dark);">${t.message || ''}</div>
+                        <div style="font-size: 0.75rem; color: var(--text-light);">${new Date(t.timestamp).toLocaleString()}</div>
+                    </div>
+                `).join('');
+            } else {
+                timeline.innerHTML = '<div style="color: var(--text-light); font-size: 0.9rem;">No history yet</div>';
+            }
+        }
+
+        function getStatusClass(status) {
+            if (status === 'Pending') return 'badge-open';
+            if (status === 'In Progress') return 'badge-progress';
+            if (status === 'Resolved') return 'badge-resolved';
+            return '';
+        }
+
+        // AUTO-DRAFT AI
+        document.getElementById('ai-btn').addEventListener('click', async () => {
+            const btn = document.getElementById('ai-btn');
+            const status = document.getElementById('update-status').value;
+
+            btn.textContent = 'Generating...';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch(`${API_URL}/generate-response`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        complaintId: id,
+                        status: status
+                    })
+                });
+                const data = await res.json();
+                if (data.message) {
+                    document.getElementById('update-message').value = data.message;
+                }
+            } catch (err) {
+                alert('Error generating response');
+            } finally {
+                btn.textContent = '✨ Auto-Draft Response (AI)';
+                btn.disabled = false;
+            }
+        });
+
+        // UPDATE
+        async function updateComplaint() {
+            const status = document.getElementById('update-status').value;
+            const message = document.getElementById('update-message').value;
+
+            try {
+                const res = await fetch(`${API_URL}/complaints/${id}/update`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        status: status,
+                        replyMessage: message
+                    })
+                });
+
+                if (res.ok) {
+                    alert('Updated successfully');
+                    location.reload();
+                } else {
+                    alert('Update failed');
+                }
+            } catch (err) {
+                alert('Error updating');
+            }
+        }
+
+        fetchDetails();
+    </script>
+</body>
+
+</html>

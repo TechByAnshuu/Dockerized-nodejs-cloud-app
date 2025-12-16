@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile – CivicSphere</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div
+            style="padding: 1.5rem 1rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <div
+                    style="width: 24px; height: 24px; background: var(--text-dark); color: var(--bg-light); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">
+                    C</div>
+                <div style="font-weight: 600; font-size: 1rem; color: var(--text-dark);">CivicSphere</div>
+            </div>
+        </div>
+
+        <div style="padding: 0 1rem; margin-bottom: 1.5rem;">
+            <a href="create-complaint.html"
+                style="display: flex; align-items: center; gap: 0.5rem; justify-content: center; border: 1px solid var(--border-light); padding: 0.5rem; border-radius: var(--radius-md); color: var(--text-dark); font-weight: 500; font-size: 0.9rem; background: var(--white); box-shadow: 0 1px 2px rgba(0,0,0,0.05); text-decoration: none;">
+                <span style="font-size: 1.1rem; line-height: 1;">+</span> New Complaint
+            </a>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    Dashboard
+                </a></li>
+            <li><a href="create-complaint.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                    New Complaint
+                </a></li>
+            <li><a href="profile.html" class="active">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    My Profile
+                </a></li>
+        </ul>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-with-sidebar">
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <a href="dashboard.html" class="back-button">← Back to Dashboard</a>
+                <img src="uploads/logo.png" alt="CivicSphere Logo">
+                <div>
+                    <div class="top-bar-title">CivicSphere</div>
+                    <div class="top-bar-subtitle">My Profile</div>
+                </div>
+            </div>
+            <div class="user-icon" style="cursor: pointer;" onclick="document.getElementById('logout-btn-top').click()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+        </div>
+
+        <!-- CONTENT AREA -->
+        <div class="content-area">
+            <!-- HEADER -->
+            <div style="margin-bottom: 2rem;">
+                <h2 style="margin: 0; color: var(--text-dark); font-size: 1.75rem;">My Profile</h2>
+                <p style="margin: 0.5rem 0 0 0; color: var(--text-gray); font-size: 0.95rem;">View and manage your
+                    account information</p>
+            </div>
+
+            <!-- PROFILE INFO CARD -->
+            <div class="card" style="margin-bottom: 1.5rem;">
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">
+                    <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: var(--text-dark);">Personal
+                        Information</h3>
+                    <button id="edit-toggle-btn" onclick="toggleEditMode()" class="btn btn-secondary btn-sm">Edit
+                        Profile</button>
+                </div>
+
+                <!-- VIEW MODE -->
+                <div id="view-mode">
+                    <div
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                        <div>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; color: var(--text-gray); font-weight: 500; font-size: 0.875rem;">Full
+                                Name</label>
+                            <div style="padding: 0.75rem; background: var(--bg-gray); border-radius: 8px; color: var(--text-dark);"
+                                id="display-name">--</div>
+                        </div>
+                        <div>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; color: var(--text-gray); font-weight: 500; font-size: 0.875rem;">Email
+                                Address</label>
+                            <div style="padding: 0.75rem; background: var(--bg-gray); border-radius: 8px; color: var(--text-dark);"
+                                id="display-email">--</div>
+                        </div>
+                        <div>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; color: var(--text-gray); font-weight: 500; font-size: 0.875rem;">Phone
+                                Number</label>
+                            <div style="padding: 0.75rem; background: var(--bg-gray); border-radius: 8px; color: var(--text-dark);"
+                                id="display-phone">--</div>
+                        </div>
+                        <div>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; color: var(--text-gray); font-weight: 500; font-size: 0.875rem;">Role</label>
+                            <div style="padding: 0.75rem; background: var(--bg-gray); border-radius: 8px; color: var(--text-dark); text-transform: capitalize;"
+                                id="display-role">--</div>
+                        </div>
+                        <div>
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; color: var(--text-gray); font-weight: 500; font-size: 0.875rem;">Member
+                                Since</label>
+                            <div style="padding: 0.75rem; background: var(--bg-gray); border-radius: 8px; color: var(--text-dark);"
+                                id="display-joined">--</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EDIT MODE -->
+                <div id="edit-mode" style="display: none;">
+                    <form id="profile-form" onsubmit="saveProfile(event)">
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <div>
+                                <label
+                                    style="display: block; margin-bottom: 0.5rem; color: var(--text-gray); font-weight: 500; font-size: 0.875rem;">Full
+                                    Name</label>
+                                <input type="text" id="edit-name" required
+                                    style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-gray); border-radius: 8px; font-size: 0.95rem;">
+                            </div>
+                            <div>
+                                <label
+                                    style="display: block; margin-bottom: 0.5rem; color: var(--text-gray); font-weight: 500; font-size: 0.875rem;">Email
+                                    Address</label>
+                                <input type="email" id="edit-email" readonly
+                                    style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-gray); border-radius: 8px; font-size: 0.95rem; background: var(--bg-gray); cursor: not-allowed;">
+                            </div>
+                            <div>
+                                <label
+                                    style="display: block; margin-bottom: 0.5rem; color: var(--text-gray); font-weight: 500; font-size: 0.875rem;">Phone
+                                    Number</label>
+                                <input type="tel" id="edit-phone"
+                                    style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-gray); border-radius: 8px; font-size: 0.95rem;">
+                            </div>
+                            <div>
+                                <label
+                                    style="display: block; margin-bottom: 0.5rem; color: var(--text-gray); font-weight: 500; font-size: 0.875rem;">Address</label>
+                                <input type="text" id="edit-address"
+                                    style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-gray); border-radius: 8px; font-size: 0.95rem;">
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 0.75rem;">
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                            <button type="button" onclick="toggleEditMode()" class="btn btn-secondary">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- MY COMPLAINTS SUMMARY -->
+            <div class="card">
+                <h3
+                    style="margin: 0 0 1.5rem 0; font-size: 1.125rem; font-weight: 600; color: var(--text-dark); border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">
+                    My Complaints Summary</h3>
+
+                <div
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                    <div
+                        style="padding: 1rem; background: var(--bg-light); border-radius: 8px; border-left: 3px solid #3b82f6;">
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-dark);"
+                            id="total-complaints">0</div>
+                        <div style="font-size: 0.875rem; color: var(--text-gray); margin-top: 0.25rem;">Total Complaints
+                        </div>
+                    </div>
+                    <div
+                        style="padding: 1rem; background: var(--bg-light); border-radius: 8px; border-left: 3px solid #f59e0b;">
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-dark);" id="pending-count">0
+                        </div>
+                        <div style="font-size: 0.875rem; color: var(--text-gray); margin-top: 0.25rem;">Pending</div>
+                    </div>
+                    <div
+                        style="padding: 1rem; background: var(--bg-light); border-radius: 8px; border-left: 3px solid #10b981;">
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-dark);" id="resolved-count">0
+                        </div>
+                        <div style="font-size: 0.875rem; color: var(--text-gray); margin-top: 0.25rem;">Resolved</div>
+                    </div>
+                </div>
+
+                <a href="dashboard.html" class="btn btn-secondary" style="display: inline-block;">View All
+                    Complaints</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const token = localStorage.getItem('token');
+        if (!token) window.location.href = '/login.html';
+
+        let currentUser = null;
+        let editMode = false;
+
+        async function loadProfile() {
+            try {
+                const res = await fetch('/api/auth/me', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                const data = await res.json();
+                currentUser = data.user;
+
+                // Display mode
+                document.getElementById('display-name').textContent = currentUser.name || '--';
+                document.getElementById('display-email').textContent = currentUser.email || '--';
+                document.getElementById('display-phone').textContent = currentUser.phone || 'Not provided';
+                document.getElementById('display-role').textContent = currentUser.role || 'citizen';
+                document.getElementById('display-joined').textContent = new Date(currentUser.createdAt).toLocaleDateString() || '--';
+
+                // Edit mode
+                document.getElementById('edit-name').value = currentUser.name || '';
+                document.getElementById('edit-email').value = currentUser.email || '';
+                document.getElementById('edit-phone').value = currentUser.phone || '';
+                document.getElementById('edit-address').value = currentUser.address || '';
+
+                // Load complaints
+                await loadComplaints();
+
+            } catch (err) {
+                console.error('Error loading profile:', err);
+                alert('Failed to load profile');
+            }
+        }
+
+        async function loadComplaints() {
+            try {
+                const res = await fetch('/api/complaints', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                const complaints = await res.json();
+
+                const total = complaints.length;
+                const pending = complaints.filter(c => c.status === 'Pending').length;
+                const resolved = complaints.filter(c => c.status === 'Resolved').length;
+
+                document.getElementById('total-complaints').textContent = total;
+                document.getElementById('pending-count').textContent = pending;
+                document.getElementById('resolved-count').textContent = resolved;
+
+            } catch (err) {
+                console.error('Error loading complaints:', err);
+            }
+        }
+
+        function toggleEditMode() {
+            editMode = !editMode;
+            document.getElementById('view-mode').style.display = editMode ? 'none' : 'block';
+            document.getElementById('edit-mode').style.display = editMode ? 'block' : 'none';
+            document.getElementById('edit-toggle-btn').textContent = editMode ? 'Cancel' : 'Edit Profile';
+        }
+
+        async function saveProfile(event) {
+            event.preventDefault();
+
+            const updatedData = {
+                name: document.getElementById('edit-name').value,
+                phone: document.getElementById('edit-phone').value,
+                address: document.getElementById('edit-address').value
+            };
+
+            try {
+                const res = await fetch('/api/auth/me', {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updatedData)
+                });
+
+                if (res.ok) {
+                    alert('Profile updated successfully!');
+                    await loadProfile();
+                    toggleEditMode();
+                } else {
+                    const data = await res.json();
+                    alert(data.message || 'Failed to update profile');
+                }
+            } catch (err) {
+                console.error('Error saving profile:', err);
+                alert('Failed to save profile');
+            }
+        }
+
+        // Logout
+        const logoutBtn = document.createElement('button');
+        logoutBtn.id = 'logout-btn-top';
+        logoutBtn.style.display = 'none';
+        logoutBtn.onclick = () => {
+            localStorage.removeItem('token');
+            window.location.href = '/login.html';
+        };
+        document.body.appendChild(logoutBtn);
+
+        // Load profile on page load
+        loadProfile();
+    </script>
+
+    <script src="js/navigation.js"></script>
+    <script src="js/theme-switcher.js"></script>
+
+</body>
+
+</html>

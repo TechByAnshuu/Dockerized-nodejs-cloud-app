@@ -1,0 +1,17 @@
+# Node artifacts
+node_modules/
+npm-debug.log
+package-lock.json
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs
+*.log
+
+# Docker
+docker-compose.override.yml
+/.docker

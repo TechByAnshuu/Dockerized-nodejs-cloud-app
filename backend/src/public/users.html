@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management – CivicSphere</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div style="padding: 0 var(--space-xl); margin-bottom: var(--space-xl);">
+            <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                <img src="uploads/logo.png" alt="CivicSphere" style="width: 35px; height: 35px;">
+                <div style="color: white; font-weight: 600;">CivicSphere</div>
+            </div>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="admin.html">Admin Panel</a></li>
+            <li><a href="manage-complaints.html">Manage Complaints</a></li>
+            <li><a href="users.html" class="active">User Management</a></li>
+            <li><a href="reports.html">Reports</a></li>
+            <li><a href="settings.html">Settings</a></li>
+        </ul>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-with-sidebar">
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <a href="admin.html" class="back-button">← Back</a>
+                <img src="uploads/logo.png" alt="CivicSphere Logo">
+                <div>
+                    <div class="top-bar-title">CivicSphere</div>
+                    <div class="top-bar-subtitle">User Management</div>
+                </div>
+            </div>
+            <div class="user-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+        </div>
+
+        <!-- CONTENT AREA -->
+        <div class="content-area">
+            <!-- HEADER -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <div>
+                    <h2 style="margin: 0; color: var(--text-dark); font-size: 1.75rem;">User Management</h2>
+                    <p style="margin: 0.5rem 0 0 0; color: var(--text-gray); font-size: 0.95rem;">Manage user accounts
+                        and roles</p>
+                </div>
+            </div>
+
+            <!-- SEARCH & FILTERS -->
+            <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                <input type="text" id="search-input" placeholder="Search by name or email..."
+                    style="flex: 1; padding: 0.75rem 1rem; border: 1px solid var(--border-gray); border-radius: 8px; font-size: 0.95rem;">
+                <select id="role-filter"
+                    style="padding: 0.75rem 1rem; border: 1px solid var(--border-gray); border-radius: 8px;">
+                    <option value="">All Roles</option>
+                    <option value="citizen">Citizen</option>
+                    <option value="admin">Admin</option>
+                    <option value="superadmin">Super Admin</option>
+                </select>
+                <button onclick="searchUsers()" class="btn btn-primary">Search</button>
+            </div>
+
+            <!-- USERS TABLE -->
+            <div class="card" style="padding: 0; overflow: hidden;">
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Joined</th>
+                                <th style="text-align: center;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table-body">
+                            <tr>
+                                <td colspan="5" style="text-align:center; padding: 2rem; color: var(--text-gray);">
+                                    Loading users...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- PAGINATION -->
+                <div id="pagination"
+                    style="padding: 1rem 1.5rem; border-top: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center;">
+                    <div id="page-info" style="color: var(--text-gray); font-size: 0.9rem;"></div>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button onclick="changePage('prev')" id="prev-btn"
+                            class="btn btn-secondary btn-sm">Previous</button>
+                        <button onclick="changePage('next')" id="next-btn"
+                            class="btn btn-secondary btn-sm">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDIT ROLE MODAL -->
+    <div id="role-modal" class="modal" style="display: none;">
+        <div class="modal-overlay" onclick="closeRoleModal()"></div>
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header"
+                style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--border-light);">
+                <h2 style="margin: 0; font-size: 1.25rem; color: var(--text-dark);">Change User Role</h2>
+                <button onclick="closeRoleModal()"
+                    style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-gray);">×</button>
+            </div>
+
+            <div class="modal-body" style="padding: 1.5rem;">
+                <p style="margin-bottom: 1rem; color: var(--text-gray);">Select new role for <strong
+                        id="modal-user-name"></strong>:</p>
+
+                <select id="modal-role-select"
+                    style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-gray); border-radius: 8px; margin-bottom: 1.5rem;">
+                    <option value="citizen">Citizen</option>
+                    <option value="admin">Admin</option>
+                    <option value="superadmin">Super Admin</option>
+                </select>
+
+                <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+                    <button onclick="closeRoleModal()" class="btn btn-secondary">Cancel</button>
+                    <button onclick="saveRole()" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = '/api/admin';
+        const token = localStorage.getItem('token');
+        if (!token) window.location.href = '/login.html';
+
+        let currentPage = 1;
+        let totalPages = 1;
+        let currentUserId = null;
+
+        async function loadUsers(page = 1) {
+            try {
+                const search = document.getElementById('search-input').value;
+                const role = document.getElementById('role-filter').value;
+
+                let url = `${API_URL}/users?page=${page}&limit=10`;
+                if (search) url += `&search=${search}`;
+                if (role) url += `&role=${role}`;
+
+                const res = await fetch(url, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                const data = await res.json();
+
+                currentPage = data.currentPage;
+                totalPages = data.totalPages;
+
+                renderUsers(data.users);
+                updatePagination(data.total, data.currentPage, data.totalPages);
+
+            } catch (err) {
+                console.error('Error loading users:', err);
+                alert('Failed to load users');
+            }
+        }
+
+        function renderUsers(users) {
+            const tbody = document.getElementById('users-table-body');
+
+            if (!users || users.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 2rem; color: var(--text-gray);">No users found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = users.map(user => {
+                const roleColor = user.role === 'admin' || user.role === 'superadmin' ? '#8b5cf6' : '#6b7280';
+                const roleBg = user.role === 'admin' || user.role === 'superadmin' ? '#f3e8ff' : '#f3f4f6';
+
+                return `
+                    <tr>
+                        <td style="font-weight: 500;">${user.name}</td>
+                        <td style="color: var(--text-gray);">${user.email}</td>
+                        <td>
+                            <span style="padding: 4px 12px; background: ${roleBg}; color: ${roleColor}; border-radius: 12px; font-size: 0.85rem; font-weight: 500; text-transform: capitalize;">
+                                ${user.role}
+                            </span>
+                        </td>
+                        <td style="color: var(--text-gray);">${new Date(user.createdAt).toLocaleDateString()}</td>
+                        <td style="text-align: center;">
+                            <button onclick="openRoleModal('${user._id}', '${user.name}', '${user.role}')" 
+                                class="btn btn-secondary btn-sm" style="margin-right: 0.5rem;">
+                                Edit Role
+                            </button>
+                            <button onclick="deleteUser('${user._id}', '${user.name}')" 
+                                class="btn btn-secondary btn-sm" style="color: #ef4444;">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function updatePagination(total, current, totalPgs) {
+            document.getElementById('page-info').textContent = `Showing page ${current} of ${totalPgs} (${total} total users)`;
+            document.getElementById('prev-btn').disabled = current === 1;
+            document.getElementById('next-btn').disabled = current === totalPgs;
+        }
+
+        function changePage(direction) {
+            if (direction === 'prev' && currentPage > 1) {
+                loadUsers(currentPage - 1);
+            } else if (direction === 'next' && currentPage < totalPages) {
+                loadUsers(currentPage + 1);
+            }
+        }
+
+        function searchUsers() {
+            loadUsers(1);
+        }
+
+        function openRoleModal(userId, userName, currentRole) {
+            currentUserId = userId;
+            document.getElementById('modal-user-name').textContent = userName;
+            document.getElementById('modal-role-select').value = currentRole;
+            document.getElementById('role-modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeRoleModal() {
+            document.getElementById('role-modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            currentUserId = null;
+        }
+
+        async function saveRole() {
+            try {
+                const newRole = document.getElementById('modal-role-select').value;
+
+                const res = await fetch(`${API_URL}/users/${currentUserId}/role`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ role: newRole })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    alert('User role updated successfully!');
+                    closeRoleModal();
+                    loadUsers(currentPage);
+                } else {
+                    alert(data.message || 'Failed to update role');
+                }
+            } catch (err) {
+                console.error('Error updating role:', err);
+                alert('Failed to update role');
+            }
+        }
+
+        async function deleteUser(userId, userName) {
+            if (!confirm(`Are you sure you want to delete user "${userName}"? This action cannot be undone.`)) {
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_URL}/users/${userId}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    alert('User deleted successfully!');
+                    loadUsers(currentPage);
+                } else {
+                    alert(data.message || 'Failed to delete user');
+                }
+            } catch (err) {
+                console.error('Error deleting user:', err);
+                alert('Failed to delete user');
+            }
+        }
+
+        // Close modal on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeRoleModal();
+            }
+        });
+
+        // Load users on page load
+        loadUsers();
+    </script>
+
+    <script src="js/navigation.js"></script>
+    <script src="js/theme-switcher.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard – CivicSphere</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <!-- SIDEBAR -->
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <!-- Logo Area -->
+        <div
+            style="padding: 1.5rem 1rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <div
+                    style="width: 24px; height: 24px; background: var(--text-dark); color: var(--bg-light); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">
+                    C</div>
+                <div style="font-weight: 600; font-size: 1rem; color: var(--text-dark);">CivicSphere</div>
+            </div>
+
+            <!-- User Profile Dropdown -->
+            <div class="profile-container" style="position: relative;">
+                <div id="profile-trigger"
+                    style="width: 32px; height: 32px; border-radius: 50%; background: #e5e7eb; overflow: hidden; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: ring 0.2s;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <!-- Dropdown Menu -->
+                <div id="profile-menu" class="profile-dropdown"
+                    style="right: auto; left: 0; min-width: 150px; top: 110%;">
+                    <a href="profile.html" class="dropdown-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        Profile
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" id="logout-btn" class="dropdown-item" style="color: #ef4444;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- "New Workspace" style button -->
+        <div style="padding: 0 1rem; margin-bottom: 1.5rem;">
+            <a href="create-complaint.html"
+                style="display: flex; align-items: center; gap: 0.5rem; justify-content: center; border: 1px solid var(--border-light); padding: 0.5rem; border-radius: var(--radius-md); color: var(--text-dark); font-weight: 500; font-size: 0.9rem; background: var(--white); box-shadow: 0 1px 2px rgba(0,0,0,0.05); text-decoration: none;">
+                <span style="font-size: 1.1rem; line-height: 1;">+</span> New Complaint
+            </a>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html" class="active">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    Dashboard
+                </a></li>
+            <li><a href="create-complaint.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                    New Complaint
+                </a></li>
+            <li><a href="#complaints" id="nav-my-complaints">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    My Complaints
+                </a></li>
+            <li><a href="#analytics" id="nav-analytics">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                    Analytics
+                </a></li>
+            <li><a href="profile.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    Profile
+                </a></li>
+            <li><a href="profile.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path
+                            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                        </path>
+                    </svg>
+                    Settings
+                </a></li>
+        </ul>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-with-sidebar">
+        <!-- HEADER (Dock Style) -->
+        <div
+            style="padding: 1.5rem 2rem 0.5rem 2rem; background: var(--white); border-bottom: 1px solid var(--border-light);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h1 style="font-size: 1.5rem; font-weight: 700; color: var(--text-dark); margin: 0;">Dashboard <span
+                        style="font-size: 0.8rem; color: #a855f7; background: #f3e8ff; padding: 2px 6px; border-radius: 4px; font-weight: 500; vertical-align: middle;">Beta</span>
+                </h1>
+                <div>
+                    <span style="color: var(--text-gray); font-size: 0.9rem; margin-right: 1rem; cursor: pointer;">Help
+                        & Support</span>
+                    <button class="btn btn-secondary btn-sm" style="background: var(--white);">+ Invite Team</button>
+                </div>
+            </div>
+
+            <!-- TABS -->
+            <div style="display: flex; gap: 2rem;">
+                <a href="#" id="tab-overview"
+                    style="padding-bottom: 0.75rem; color: var(--text-dark); font-weight: 600; border-bottom: 2px solid var(--text-dark); text-decoration: none;">Overview</a>
+                <a href="#" id="tab-complaints"
+                    style="padding-bottom: 0.75rem; color: var(--text-gray); font-weight: 500; text-decoration: none;">Complaints</a>
+                <a href="#" id="tab-analytics"
+                    style="padding-bottom: 0.75rem; color: var(--text-gray); font-weight: 500; text-decoration: none;">Analytics</a>
+                <a href="#" id="tab-settings"
+                    style="padding-bottom: 0.75rem; color: var(--text-gray); font-weight: 500; text-decoration: none;">Settings</a>
+            </div>
+        </div>
+
+        <!-- CONTENT AREA -->
+        <div class="content-area" style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
+
+            <!-- FILTERS ROW -->
+            <div style="display: flex; gap: 1rem; margin-bottom: 3rem;">
+                <button id="sort-date" class="btn btn-secondary btn-sm"
+                    style="color: var(--text-dark); border-color: var(--border-gray); background: var(--white);">Date
+                    Range
+                    <strong>All</strong> ▼</button>
+                <button id="sort-status" class="btn btn-secondary btn-sm"
+                    style="color: var(--text-dark); border-color: var(--border-gray); background: var(--white);">Status
+                    <strong>All</strong> ▼</button>
+                <button id="sort-category" class="btn btn-secondary btn-sm"
+                    style="color: var(--text-dark); border-color: var(--border-gray); background: var(--white);">Category
+                    <strong>All</strong> ▼</button>
+            </div>
+
+            <!-- STATS CARDS GRID -->
+            <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-dark); margin-bottom: 1rem;">Complaints
+                Overview</h3>
+            <div id="analytics-section" class="stats-grid"
+                style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 3rem;">
+                <div class="stat-card">
+                    <span class="label">Total Complaints</span>
+                    <span class="value" id="total-complaints">--</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Open</span>
+                    <span class="value" id="open-complaints">--</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">In Progress</span>
+                    <span class="value" id="progress-complaints">--</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Resolved</span>
+                    <span class="value" id="resolved-complaints">--</span>
+                </div>
+            </div>
+
+            <!-- User Analytics Quick View (computed from user's complaints) -->
+            <div id="user-analytics-details" style="margin-bottom: 3rem; display: none;">
+                <h4 style="margin-bottom: 0.5rem;">Analytics (Your Complaints)</h4>
+                <div id="analytics-breakdown" style="display:flex; gap:1rem; flex-wrap:wrap;">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+
+
+            <!-- TWO COLUMN LAYOUT (Table + Activity) -->
+            <div class="two-column">
+                <!-- LEFT COLUMN: Recent Complaints -->
+                <div class="card"
+                    style="padding: 0; overflow: hidden; border: 1px solid var(--border-light); box-shadow: none;">
+                    <div class="card-header"
+                        style="padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-light); margin: 0; background: var(--bg-gray); display: flex; justify-content: space-between; align-items: center;">
+                        <h3 class="card-title"
+                            style="font-size: 1rem; margin: 0; color: var(--text-dark); font-weight: 600;">Recent
+                            Complaints</h3>
+                    </div>
+
+                    <div class="table-container" style="box-shadow: none; border-radius: 0;">
+                        <table class="table">
+                            <thead>
+                                <tr style="background: var(--white);">
+                                    <th
+                                        style="font-weight: 500; color: var(--text-gray); font-size: 0.8rem; text-transform: uppercase;">
+                                        ID</th>
+                                    <th
+                                        style="font-weight: 500; color: var(--text-gray); font-size: 0.8rem; text-transform: uppercase;">
+                                        Title</th>
+                                    <th
+                                        style="font-weight: 500; color: var(--text-gray); font-size: 0.8rem; text-transform: uppercase;">
+                                        Category</th>
+                                    <th
+                                        style="font-weight: 500; color: var(--text-gray); font-size: 0.8rem; text-transform: uppercase;">
+                                        Status</th>
+                                    <th
+                                        style="font-weight: 500; color: var(--text-gray); font-size: 0.8rem; text-transform: uppercase;">
+                                        Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="complaints-table-body">
+                                <tr>
+                                    <td colspan="5" style="text-align:center; padding: 2rem; color: var(--text-gray);">
+                                        Loading data...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: Activity Summary -->
+                <div class="card" style="border: 1px solid var(--border-light); box-shadow: none; height: fit-content;">
+                    <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-dark); margin-bottom: 1rem;">
+                        Activity Feed</h3>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="display: flex; gap: 0.75rem; align-items: start;">
+                            <div
+                                style="width: 8px; height: 8px; background: var(--primary-blue); border-radius: 50%; margin-top: 6px;">
+                            </div>
+                            <div>
+                                <div style="font-size: 0.85rem; color: var(--text-dark); font-weight: 500;">New
+                                    complaint registered</div>
+                                <div style="font-size: 0.75rem; color: var(--text-gray);">2 mins ago</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 0.75rem; align-items: start;">
+                            <div
+                                style="width: 8px; height: 8px; background: #a855f7; border-radius: 50%; margin-top: 6px;">
+                            </div>
+                            <div>
+                                <div style="font-size: 0.85rem; color: var(--text-dark); font-weight: 500;">System
+                                    Update v2.4</div>
+                                <div style="font-size: 0.75rem; color: var(--text-gray);">1 hour ago</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 0.75rem; align-items: start;">
+                            <div
+                                style="width: 8px; height: 8px; background: #22c55e; border-radius: 50%; margin-top: 6px;">
+                            </div>
+                            <div>
+                                <div style="font-size: 0.85rem; color: var(--text-dark); font-weight: 500;">3 Complaints
+                                    Resolved</div>
+                                <div style="font-size: 0.75rem; color: var(--text-gray);">Yesterday</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1.5rem; text-align: center;">
+                        <a href="#"
+                            style="font-size: 0.85rem; color: var(--primary-blue); font-weight: 500; text-decoration: none;">View
+                            All History</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- COMPLAINT DETAIL MODAL -->
+    <div id="complaint-modal" class="modal" style="display: none;">
+        <div class="modal-overlay" onclick="closeComplaintModal()"></div>
+        <div class="modal-content" style="max-width: 800px; max-height: 90vh; overflow-y: auto;">
+            <div class="modal-header"
+                style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--border-light);">
+                <h2 id="modal-title" style="margin: 0; font-size: 1.25rem; color: var(--text-dark);">Complaint Details
+                </h2>
+                <button onclick="closeComplaintModal()"
+                    style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-gray); padding: 0; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 4px;">×</button>
+            </div>
+
+            <div class="modal-body" style="padding: 1.5rem;">
+                <!-- Status Badge -->
+                <div style="margin-bottom: 1.5rem;">
+                    <span id="modal-status" class="badge">Status</span>
+                </div>
+
+                <!-- Complaint Info -->
+                <div style="margin-bottom: 2rem;">
+                    <h3
+                        style="font-size: 0.9rem; font-weight: 600; color: var(--text-gray); text-transform: uppercase; margin-bottom: 1rem;">
+                        Details</h3>
+                    <div style="background: var(--bg-gray); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; font-size: 0.9rem;">
+                            <div>
+                                <div style="color: var(--text-gray); margin-bottom: 0.25rem;">Category</div>
+                                <div id="modal-category" style="color: var(--text-dark); font-weight: 500;">--</div>
+                            </div>
+                            <div>
+                                <div style="color: var(--text-gray); margin-bottom: 0.25rem;">Location</div>
+                                <div id="modal-location" style="color: var(--text-dark); font-weight: 500;">--</div>
+                            </div>
+                            <div>
+                                <div style="color: var(--text-gray); margin-bottom: 0.25rem;">Date Created</div>
+                                <div id="modal-date" style="color: var(--text-dark); font-weight: 500;">--</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-gray); margin-bottom: 0.5rem; font-weight: 500;">Description</div>
+                        <p id="modal-description" style="color: var(--text-dark); line-height: 1.6; margin: 0;">--</p>
+                    </div>
+                </div>
+
+                <!-- Images -->
+                <div id="modal-images-section" style="margin-bottom: 2rem; display: none;">
+                    <h3
+                        style="font-size: 0.9rem; font-weight: 600; color: var(--text-gray); text-transform: uppercase; margin-bottom: 1rem;">
+                        Images</h3>
+                    <div id="modal-images"
+                        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem;">
+                        <!-- Images will be inserted here -->
+                    </div>
+                </div>
+
+                <!-- Timeline / Admin Messages -->
+                <div>
+                    <h3
+                        style="font-size: 0.9rem; font-weight: 600; color: var(--text-gray); text-transform: uppercase; margin-bottom: 1rem;">
+                        Timeline & Updates</h3>
+                    <div id="modal-timeline" style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="color: var(--text-gray); font-size: 0.9rem;">No updates yet</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/navigation.js"></script>
+    <script src="js/theme-switcher.js"></script>
+    <script>
+        // Global state for sorting
+        let currentComplaints = [];
+        let sortDirection = { date: 'desc', status: 'asc', category: 'asc' };
+
+        // Custom Render Function for the new layout
+        window.renderComplaints = function (complaints) {
+            console.log('Rendering complaints in new dashboard layout...', complaints);
+            currentComplaints = complaints; // Store for sorting
+
+            // 1. Update Stats
+            const total = complaints.length;
+            // Treat 'Pending' as 'Open' in the UI (legacy compatibility)
+            const open = complaints.filter(c => ['Open', 'Pending'].includes(c.status)).length;
+            const inProgress = complaints.filter(c => c.status === 'In Progress').length;
+            const resolved = complaints.filter(c => c.status === 'Resolved').length;
+
+            document.getElementById('total-complaints').textContent = this.formatNumber(total);
+            document.getElementById('open-complaints').textContent = this.formatNumber(open);
+            document.getElementById('progress-complaints').textContent = this.formatNumber(inProgress);
+            document.getElementById('resolved-complaints').textContent = this.formatNumber(resolved);
+
+            // 2. Populate Table
+            this.renderTable(complaints);
+        };
+
+        window.formatNumber = function (num) {
+            return num < 10 && num > 0 ? `0${num}` : num;
+        }
+
+        window.renderTable = function (complaints) {
+            const tbody = document.getElementById('complaints-table-body');
+            if (tbody) {
+                if (complaints.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 2rem; color: var(--text-gray);">No complaints found</td></tr>';
+                } else {
+                    tbody.innerHTML = complaints.map(c => {
+                        let badgeClass = 'badge-open';
+                        if (c.status === 'In Progress') badgeClass = 'badge-progress';
+                        if (c.status === 'Resolved') badgeClass = 'badge-resolved';
+                        if (c.aiSeverity === 'High') badgeClass = 'badge-severe';
+
+                        return `
+                        <tr onclick="showComplaintDetails('${c._id || c.id}')" style="cursor: pointer;">
+                            <td style="font-family: monospace; color: var(--text-gray);">#${(c._id || c.id || '').toString().slice(-4)}</td>
+                            <td>
+                                <div style="font-weight: 500; color: var(--text-dark);">${c.title}</div>
+                                <div style="font-size: 0.75rem; color: var(--text-gray);">${c.location || 'Not Specified'}</div>
+                            </td>
+                            <td>${c.category}</td>
+                            <td><span class="badge ${badgeClass}">${c.status}</span></td>
+                            <td>${new Date(c.createdAt).toLocaleDateString()}</td>
+                        </tr>
+                        `;
+                    }).join('');
+                }
+            }
+        }
+
+        // Show Complaint Details in Modal
+        async function showComplaintDetails(complaintId) {
+            try {
+                // Find complaint in current data
+                const complaint = currentComplaints.find(c => (c._id || c.id) === complaintId);
+
+                if (!complaint) {
+                    alert('Complaint not found');
+                    return;
+                }
+
+                // Populate modal
+                document.getElementById('modal-title').textContent = complaint.title;
+                document.getElementById('modal-description').textContent = complaint.description;
+                document.getElementById('modal-category').textContent = complaint.category || 'Uncategorized';
+                document.getElementById('modal-location').textContent = complaint.location || 'Not specified';
+                document.getElementById('modal-date').textContent = new Date(complaint.createdAt).toLocaleString();
+
+                // Status badge
+                const statusEl = document.getElementById('modal-status');
+                statusEl.textContent = complaint.status;
+                statusEl.className = 'badge';
+                if (complaint.status === 'Pending') statusEl.classList.add('badge-open');
+                if (complaint.status === 'In Progress') statusEl.classList.add('badge-progress');
+                if (complaint.status === 'Resolved') statusEl.classList.add('badge-resolved');
+
+                // Images
+                const imagesSection = document.getElementById('modal-images-section');
+                const imagesContainer = document.getElementById('modal-images');
+                if (complaint.images && complaint.images.length > 0) {
+                    imagesSection.style.display = 'block';
+                    imagesContainer.innerHTML = complaint.images.map(img =>
+                        `<img src="${img}" alt="Complaint image" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border-light);">`
+                    ).join('');
+                } else {
+                    imagesSection.style.display = 'none';
+                }
+
+                // Timeline
+                renderTimeline(complaint.timeline || []);
+
+                // Show modal
+                document.getElementById('complaint-modal').style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+
+            } catch (err) {
+                console.error('Error showing complaint details:', err);
+                alert('Failed to load complaint details');
+            }
+        }
+
+        // Render Timeline
+        function renderTimeline(timeline) {
+            const timelineContainer = document.getElementById('modal-timeline');
+
+            if (!timeline || timeline.length === 0) {
+                timelineContainer.innerHTML = '<div style="color: var(--text-gray); font-size: 0.9rem; padding: 1rem; background: var(--bg-gray); border-radius: 8px;">No updates yet</div>';
+                return;
+            }
+
+            // Sort by timestamp, newest first
+            const sorted = [...timeline].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+            timelineContainer.innerHTML = sorted.map((item, index) => {
+                const hasMessage = item.message && item.message.trim().length > 0;
+                const isAdminMessage = hasMessage && !item.message.includes('Status updated to');
+
+                return `
+                    <div class="timeline-item ${isAdminMessage ? 'admin-message' : ''}" style="border-left: 2px solid var(--border-light); padding-left: 1.5rem; padding-bottom: ${index === sorted.length - 1 ? '0' : '1rem'}; position: relative;">
+                        <div style="position: absolute; left: -6px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background-color: ${isAdminMessage ? '#a855f7' : 'var(--primary-blue)'};"></div>
+                        <div style="font-weight: 600; font-size: 0.9rem; color: var(--text-dark); margin-bottom: 0.25rem;">
+                            ${item.status || 'Update'}
+                            ${isAdminMessage ? '<span style="font-size: 0.75rem; margin-left: 0.5rem; padding: 2px 6px; background: #f3e8ff; color: #a855f7; border-radius: 4px; font-weight: 500;">Admin Reply</span>' : ''}
+                        </div>
+                        ${hasMessage ? `<div style="font-size: 0.85rem; color: var(--text-dark); line-height: 1.5; margin-bottom: 0.5rem; ${isAdminMessage ? 'background: var(--bg-gray); padding: 0.75rem; border-radius: 6px; border-left: 3px solid #a855f7;' : ''}">${item.message}</div>` : ''}
+                        <div style="font-size: 0.75rem; color: var(--text-light);">${new Date(item.timestamp).toLocaleString()}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Close Modal
+        function closeComplaintModal() {
+            document.getElementById('complaint-modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeComplaintModal();
+            }
+        });
+
+        // Sorting Logic
+        function sortComplaints(criteria) {
+            const direction = sortDirection[criteria] === 'asc' ? 'desc' : 'asc';
+            sortDirection[criteria] = direction;
+
+            // Update button arrows (visual feedback)
+            document.getElementById('sort-date').innerHTML = `Date Range <strong>${direction === 'asc' ? 'Oldest' : 'Newest'}</strong> ${direction === 'asc' ? '▲' : '▼'}`;
+            // Reset others
+            if (criteria !== 'date') document.getElementById('sort-date').innerHTML = `Date Range <strong>All</strong> ▼`;
+
+            const sorted = [...currentComplaints].sort((a, b) => {
+                if (criteria === 'date') {
+                    return direction === 'asc'
+                        ? new Date(a.createdAt) - new Date(b.createdAt)
+                        : new Date(b.createdAt) - new Date(a.createdAt);
+                }
+                if (criteria === 'status') {
+                    return direction === 'asc' ? a.status.localeCompare(b.status) : b.status.localeCompare(a.status);
+                }
+                if (criteria === 'category') {
+                    return direction === 'asc' ? a.category.localeCompare(b.category) : b.category.localeCompare(a.category);
+                }
+                return 0;
+            });
+
+            window.renderTable(sorted);
+        }
+
+        // Event Listeners for Sorting
+        document.getElementById('sort-date')?.addEventListener('click', () => sortComplaints('date'));
+        document.getElementById('sort-status')?.addEventListener('click', () => sortComplaints('status'));
+        document.getElementById('sort-category')?.addEventListener('click', () => sortComplaints('category'));
+
+
+        // Profile Dropdown Functionality
+        const profileTrigger = document.getElementById('profile-trigger');
+        const profileMenu = document.getElementById('profile-menu');
+
+        if (profileTrigger && profileMenu) {
+            profileTrigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                profileMenu.classList.toggle('show');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!profileTrigger.contains(e.target) && !profileMenu.contains(e.target)) {
+                    profileMenu.classList.remove('show');
+                }
+            });
+        }
+
+        // Logout functionality
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (confirm('Are you sure you want to logout?')) {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                    window.location.href = 'index.html';
+                }
+            });
+        }
+    </script>
+    <script src="js/dashboard.js"></script>
+
+</body>
+
+</html>
