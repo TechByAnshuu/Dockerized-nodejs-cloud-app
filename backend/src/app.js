@@ -9,12 +9,30 @@ const adminRoutes = require('./routes/adminRoutes');
 const app = express();
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/complaint_db', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-    .then(() => console.log('MongoDB Connected'))
-    .catch(err => console.error('MongoDB Connection Error:', err));
+const connectDB = async () => {
+    try {
+        const conn = await mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/complaint_db', {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
+            socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+        });
+        console.log(`MongoDB Connected: ${conn.connection.host}`);
+    } catch (err) {
+        console.error(`MongoDB Connection Error: ${err.message}`);
+        // Do not exit process, let the middleware handle 503s
+    }
+};
+
+connectDB();
+
+// Handle connection events
+mongoose.connection.on('error', err => {
+    console.error(`MongoDB Runtime Error: ${err.message}`);
+});
+mongoose.connection.on('disconnected', () => {
+    console.log('MongoDB Disconnected');
+});
 
 // Middleware
 app.use(cors());
