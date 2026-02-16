@@ -1,6 +1,6 @@
 # AI-Based Smart Complaint Management System
 
-A modern, Dockerized Node.js web application for managing civic complaints with AI-powered categorization.
+The AI-Based Smart Complaint Management System is a web application that allows users to submit complaints digitally and automatically categorizes them using AI. The system streamlines complaint handling by organizing reports, reducing manual effort, and helping authorities respond faster. Built with Node.js and Docker, the platform ensures scalable deployment, efficient processing, and a modern cloud-ready architecture. It is highly adaptable and can be used across multiple sectors—not only for civic complaints but also for managing workflows in hospitals, municipalities, government offices, and private institutions.
 
 ## 🚀 Features
 
@@ -64,8 +64,8 @@ docker-compose up --build
 ```
 
 3. **Access the application**
-- Frontend: http://localhost
-- API: http://localhost/api/health
+- Frontend: https://civicsphere-backend.onrender.com/
+- Backend:  https://civicsphere-backend.onrender.com/
 
 ## 🎯 Usage
 
@@ -334,7 +334,8 @@ MIT License
 
 ## 👨‍💻 Author
 
-Created as a demonstration of full-stack development with Docker deployment.
+Ansh Mishra — Full-stack developer specializing in Node.js, Docker, and cloud deployment.  
+This project showcases containerized backend architecture and real-world DevOps practices.
 
 ---
 
