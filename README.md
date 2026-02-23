@@ -2,7 +2,7 @@
 
 The AI-Based Smart Complaint Management System is a web application that allows users to submit complaints digitally and automatically categorizes them using AI. The system streamlines complaint handling by organizing reports, reducing manual effort, and helping authorities respond faster. Built with Node.js and Docker, the platform ensures scalable deployment, efficient processing, and a modern cloud-ready architecture. It is highly adaptable and can be used across multiple sectors—not only for civic complaints but also for managing workflows in hospitals, municipalities, government offices, and private institutions.
 
-## 🚀 Features
+##  Features
 
 - **AI-Powered Categorization**: Automatic complaint classification using NLP
 - **User Dashboard**: Submit and track complaints with image uploads
@@ -13,7 +13,7 @@ The AI-Based Smart Complaint Management System is a web application that allows 
 - **Dockerized Deployment**: Consistent environment across dev/test/prod
 - **Apache Reverse Proxy**: Load balancing and secure routing
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### Frontend
 - HTML5, CSS3, JavaScript (Vanilla)
@@ -33,7 +33,7 @@ The AI-Based Smart Complaint Management System is a web application that allows 
 - Linux (Ubuntu Server)
 - AWS EC2 ready
 
-## 📦 Installation
+##  Installation
 
 ### Prerequisites
 - Docker & Docker Compose
@@ -100,7 +100,7 @@ docker-compose up --build
    - Update complaint status
    - View analytics
 
-## 📊 AI Categorization
+##  AI Categorization
 
 The system uses a rule-based NLP engine that analyzes complaint text and assigns categories:
 
@@ -111,7 +111,7 @@ The system uses a rule-based NLP engine that analyzes complaint text and assigns
 - **Public Safety**: accident, unsafe, crime, etc.
 - **General**: Default category
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 Client (Browser)
@@ -123,7 +123,7 @@ Node.js/Express (Port 3000)
 MongoDB (Port 27017)
 ```
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 /
@@ -154,7 +154,7 @@ MongoDB (Port 27017)
     └── httpd.conf
 ```
 
-## 🔒 Security Features
+##  Security Features
 
 - Password hashing with bcrypt
 - JWT token-based authentication
@@ -162,7 +162,7 @@ MongoDB (Port 27017)
 - Role-based access control (Admin/Citizen)
 - AWS Security Group firewall rules (when deployed)
 
-## 🌐 Deployment
+##  Deployment
 
 ### AWS EC2 Deployment
 
@@ -231,7 +231,7 @@ curl http://localhost:8080/api/health
 
 ---
 
-## Local run & test (Windows CMD) 🔁
+## Local run & test (Windows CMD) 
 
 Below are copy-paste commands for running and testing the app locally on Windows (cmd.exe). Use Docker Compose (recommended) to run all services, or run the backend directly with Node when debugging.
 
@@ -316,7 +316,7 @@ Note: For security, never store production secrets in your Git repository — us
 - `PUT /api/admin/complaints/:id/status` - Update status
 - `GET /api/admin/analytics` - Get statistics
 
-## 🎨 Design System
+##  Design System
 
 - **Colors**: HSL-based for easy theming
 - **Typography**: Outfit & Inter fonts
@@ -324,15 +324,15 @@ Note: For security, never store production secrets in your Git repository — us
 - **Animations**: Smooth transitions and hover effects
 - **Responsive**: Mobile-first approach
 
-## 🤝 Contributing
+##  Contributing
 
 This is a demonstration project for learning Docker, Node.js, and modern web development practices.
 
-## 📄 License
+##  License
 
 MIT License
 
-## 👨‍💻 Author
+##  Author
 
 Ansh Mishra — Full-stack developer specializing in Node.js, Docker, and cloud deployment.  
 This project showcases containerized backend architecture and real-world DevOps practices.
