@@ -12,6 +12,90 @@
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/components.css">
+    <style>
+        /* Modern Glassmorphism & Grid Styles */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .recent-complaints-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            width: 100%;
+        }
+
+        @media (max-width: 992px) {
+            .recent-complaints-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6) !important;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            border-radius: 16px !important;
+            padding: 24px !important;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1) !important;
+            background: rgba(255, 255, 255, 0.7) !important;
+        }
+
+        body.dark-mode .glass-card {
+            background: rgba(30, 30, 30, 0.6) !important;
+            border-color: rgba(255, 255, 255, 0.1) !important;
+        }
+
+        .badge-pill {
+            padding: 6px 14px !important;
+            border-radius: 50px !important;
+            font-size: 0.75rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px;
+        }
+
+        .complaint-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .complaint-meta {
+            margin-top: 1.25rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        body.dark-mode .complaint-meta {
+            border-top-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .quick-actions-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+    </style>
 </head>
 
 <body>
@@ -169,92 +253,66 @@
                 </div>
             </div>
 
-            <!-- MAIN CONTENT GRID -->
-            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
-                <!-- Recent Complaints -->
-                <div class="card">
-                    <div
-                        style="border-bottom: 1px solid var(--border-light); padding-bottom: 1rem; margin-bottom: 1.25rem;">
-                        <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: var(--text-dark);">Recent
-                            Complaints</h3>
+            <!-- QUICK ACTIONS (Moved above or styled differently) -->
+            <div class="quick-actions-row">
+                <button class="hoverable quick-action" onclick="window.location.href='manage-complaints.html'">
+                    <div class="quick-icon" style="background: var(--quick-icon-bg-1); color: var(--icon-primary);">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                        </svg>
                     </div>
-                    <div id="recent-complaints" style="display: flex; flex-direction: column; gap: 0.75rem;">
-                        <div style="text-align: center; padding: 2rem; color: var(--text-gray);">Loading...</div>
+                    <div class="quick-action-text">
+                        <div class="quick-action-title">Manage Complaints</div>
                     </div>
+                </button>
+
+                <button class="hoverable quick-action" onclick="window.location.href='users.html'">
+                    <div class="quick-icon" style="background: var(--quick-icon-bg-2); color: var(--icon-warning);">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                        </svg>
+                    </div>
+                    <div class="quick-action-text">
+                        <div class="quick-action-title">User Management</div>
+                    </div>
+                </button>
+
+                <button class="hoverable quick-action" onclick="window.location.href='reports.html'">
+                    <div class="quick-icon" style="background: var(--quick-icon-bg-3); color: var(--icon-accent);">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M3 3v18h18" />
+                            <path d="M18 17V9" />
+                            <path d="M13 17V5" />
+                            <path d="M8 17v-3" />
+                        </svg>
+                    </div>
+                    <div class="quick-action-text">
+                        <div class="quick-action-title">Analytics & Reports</div>
+                    </div>
+                </button>
+            </div>
+
+            <!-- RECENT COMPLAINTS (Full Width) -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <div
+                    style="border-bottom: 1px solid var(--border-light); padding-bottom: 1rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+                    <h3 style="margin: 0; font-size: 1.25rem; font-weight: 700; color: var(--text-dark);">Recent
+                        Complaints</h3>
+                    <span style="font-size: 0.85rem; color: var(--text-gray);">Full Dashboard Width</span>
                 </div>
-
-                <!-- Quick Actions -->
-                <div class="card">
-                    <div
-                        style="border-bottom: 1px solid var(--border-light); padding-bottom: 1rem; margin-bottom: 1.25rem;">
-                        <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: var(--text-dark);">Quick
-                            Actions</h3>
-                    </div>
-                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-                        <button class="hoverable quick-action" onclick="window.location.href='manage-complaints.html'">
-                            <div class="quick-icon"
-                                style="background: var(--quick-icon-bg-1); color: var(--icon-primary);">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                                </svg>
-                            </div>
-                            <div class="quick-action-text">
-                                <div class="quick-action-title">Manage Complaints</div>
-                                <div class="quick-action-subtitle">View and update all complaints</div>
-                            </div>
-                        </button>
-
-                        <button class="hoverable quick-action" onclick="window.location.href='users.html'">
-                            <div class="quick-icon"
-                                style="background: var(--quick-icon-bg-2); color: var(--icon-warning);">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                                    <circle cx="9" cy="7" r="4" />
-                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                                </svg>
-                            </div>
-                            <div class="quick-action-text">
-                                <div class="quick-action-title">User Management</div>
-                                <div class="quick-action-subtitle">Manage user accounts and roles</div>
-                            </div>
-                        </button>
-
-                        <button class="hoverable quick-action" onclick="window.location.href='reports.html'">
-                            <div class="quick-icon"
-                                style="background: var(--quick-icon-bg-3); color: var(--icon-accent);">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M3 3v18h18" />
-                                    <path d="M18 17V9" />
-                                    <path d="M13 17V5" />
-                                    <path d="M8 17v-3" />
-                                </svg>
-                            </div>
-                            <div class="quick-action-text">
-                                <div class="quick-action-title">Analytics & Reports</div>
-                                <div class="quick-action-subtitle">View detailed statistics</div>
-                            </div>
-                        </button>
-
-                        <button class="hoverable quick-action" onclick="window.location.href='settings.html'">
-                            <div class="quick-icon"
-                                style="background: var(--quick-icon-bg-4); color: var(--icon-success);">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <circle cx="12" cy="12" r="3" />
-                                    <path
-                                        d="M12 1v6m0 6v6m5.2-13.2l-4.2 4.2m-6 6l-4.2 4.2m16.4 0l-4.2-4.2m-6-6l-4.2-4.2" />
-                                </svg>
-                            </div>
-                            <div class="quick-action-text">
-                                <div class="quick-action-title">Settings</div>
-                                <div class="quick-action-subtitle">Configure system settings</div>
-                            </div>
-                        </button>
+                <div id="recent-complaints" class="recent-complaints-grid">
+                    <div style="text-align: center; padding: 3rem; color: var(--text-gray); grid-column: 1 / -1;">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5" style="opacity: 0.5; margin-bottom: 1rem;">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 16v-4m0-4h.01" />
+                        </svg>
+                        <p>Fetching latest complaints...</p>
                     </div>
                 </div>
             </div>
@@ -300,36 +358,40 @@
         function renderRecentComplaints(complaints) {
             const container = document.getElementById('recent-complaints');
             if (!complaints || complaints.length === 0) {
-                container.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--text-gray);">No complaints yet</div>';
+                container.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--text-gray); grid-column: 1 / -1;">No complaints yet</div>';
                 return;
             }
 
             container.innerHTML = complaints.map(c => `
-                <div class="recent-complaint" style="padding: 1rem; border: 1px solid var(--border-light); border-radius: 8px; cursor: pointer; transition: all 0.2s;" onclick="window.location.href='complaint-details.html?id=${c._id}'">
-                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
-                        <div style="font-weight: 600; color: var(--text-dark); font-size: 0.95rem;">${c.title}</div>
-                        <span class="badge ${getStatusClass(c.status)}" style="font-size: 0.75rem;">${c.status}</span>
+                <div class="glass-card" onclick="window.location.href='complaint-details.html?id=${c._id}'">
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                            <span class="badge badge-pill ${getStatusClass(c.status)}">${c.status}</span>
+                            <span style="font-size: 0.75rem; color: var(--text-gray); font-weight: 500;">
+                                ${new Date(c.createdAt).toLocaleDateString()}
+                            </span>
+                        </div>
+                        <div class="complaint-title">${c.title}</div>
+                        <div style="font-size: 0.9rem; color: var(--text-gray); line-height: 1.5; margin-bottom: 1rem;">
+                            ${c.description.substring(0, 120)}${c.description.length > 120 ? '...' : ''}
+                        </div>
                     </div>
-                    <div style="font-size: 0.85rem; color: var(--text-gray); margin-bottom: 0.75rem; line-height: 1.4;">${c.description.substring(0, 100)}${c.description.length > 100 ? '...' : ''}</div>
-                    <div style="display: flex; gap: 1.25rem; font-size: 0.8rem; color: var(--text-gray);">
-                        <span style="display: flex; align-items: center; gap: 0.35rem;">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-                            </svg>
+                    
+                    <div class="complaint-meta">
+                        <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-dark); font-weight: 500; font-size: 0.85rem;">
+                            <div style="width: 24px; height: 24px; background: var(--bg-gray); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                                </svg>
+                            </div>
                             ${c.user?.name || 'Unknown'}
-                        </span>
-                        <span style="display: flex; align-items: center; gap: 0.35rem;">
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.35rem; font-size: 0.8rem; color: var(--primary-blue); font-weight: 600;">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
                             </svg>
                             ${c.category}
-                        </span>
-                        <span style="display: flex; align-items: center; gap: 0.35rem;">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-                            </svg>
-                            ${new Date(c.createdAt).toLocaleDateString()}
-                        </span>
+                        </div>
                     </div>
                 </div>
             `).join('');
