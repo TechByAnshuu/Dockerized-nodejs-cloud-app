@@ -132,12 +132,49 @@
         anchors.forEach(a => a.setAttribute('href', dashboardHref));
     }
 
+    // Mobile Sidebar Toggle
+    function initMobileSidebar() {
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+
+        if (!mobileBtn || !sidebar || !overlay) {
+            return; // Not on a page with a sidebar layout
+        }
+
+        // Open Sidebar
+        mobileBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            sidebar.classList.add('sidebar-open');
+            overlay.classList.add('sidebar-open');
+        });
+
+        // Close Sidebar when clicking overlay
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('sidebar-open');
+            overlay.classList.remove('sidebar-open');
+        });
+
+        // Optional: Close Sidebar when clicking a link inside it on mobile
+        const sidebarLinks = sidebar.querySelectorAll('a');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove('sidebar-open');
+                    overlay.classList.remove('sidebar-open');
+                }
+            });
+        });
+    }
+
     // Initialize all navigation features
     function init() {
         initProfileDropdown();
         updateDashboardLinks();
         makeLogoClickable();
         initBackButton();
+        initMobileSidebar();
     }
 
     // Run when DOM is ready

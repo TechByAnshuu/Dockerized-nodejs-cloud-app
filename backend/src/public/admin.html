@@ -303,8 +303,11 @@
 
 <body>
 
+    <!-- SIDEBAR OVERLAY -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
     <!-- SIDEBAR -->
-    <div class="sidebar">
+    <div class="sidebar" id="sidebar">
         <div style="padding: 0 var(--space-xl); margin-bottom: var(--space-xl);">
             <div style="display: flex; align-items: center; gap: var(--space-sm);">
                 <img src="uploads/logo.png" alt="CivicSphere" style="width: 35px; height: 35px;">
@@ -327,6 +330,15 @@
         <!-- TOP BAR -->
         <div class="top-bar">
             <div class="top-bar-left">
+                <!-- Mobile Toggle Button -->
+                <button class="mobile-menu-toggle" id="mobile-menu-btn" title="Toggle Menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
                 <a href="#" class="back-button">← Back</a>
                 <img src="uploads/logo.png" alt="CivicSphere Logo">
                 <div>
